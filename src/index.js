@@ -1,17 +1,43 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React, { StrictMode, useState } from 'react'
+import ReactDOM from 'react-dom/client'
+import { BrowserRouter, Route, Routes} from 'react-router-dom'
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+import Home from './Pages/Home.js'
+import Helpline from './Pages/Helpline.js'
+import Docs from './Pages/Docs.js'
+import Header from './Components/Header.js'
+import './style.css'
+import SignUp from './Components/SignUp.js'
+import Login from './Components/Login.js'
+import AuthRequired from './Components/AuthRequired.js'
+import { Toaster } from 'react-hot-toast'
+
+function App()
+{  
+    const [loggedIn,setLoggedIn] = useState(false)
+    console.log(loggedIn)
+
+    return <BrowserRouter>
+        <Header/>
+        <Toaster 
+            position='top-center'
+            reverseOrder={false}
+        />
+        <Routes>
+            <Route path='/helpline' element={<Helpline />} />
+            <Route path='/docs' element={<Docs />} />
+            <Route  element={<AuthRequired loggedIn={loggedIn}/>}>
+                <Route path='/' element={<Home setLoggedIn={setLoggedIn}/>}/>
+            </Route>
+            <Route path='/signup' element={<SignUp  setLoggedIn={setLoggedIn} />}/>
+            <Route path='/login' element={<Login  setLoggedIn={setLoggedIn} />}/>
+        </Routes>
+    </BrowserRouter>
+}
+
+const root = ReactDOM.createRoot(document.getElementById("root"))
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+    <StrictMode>
+        <App />
+    </StrictMode>
+)
