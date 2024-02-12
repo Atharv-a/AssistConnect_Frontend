@@ -11,8 +11,10 @@ export default function Login({setLoggedIn}){
     const [password, setPassword] = useState('')
     const navigator = useNavigate()
     
-    if(email.length>254)cautionLen("Email","254","email_prob") 
+    if(email.length>254)cautionLen("Email","254","email_prob")    
+    else toast.remove("email_prob")
     if(password.length>254)cautionLen("Password","254","password_prob")
+    else toast.remove("password_prob")
 
     function handleLogin(e){
         e.preventDefault()

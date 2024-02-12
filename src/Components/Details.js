@@ -4,7 +4,8 @@ export default function Details({formData}){
         <div id='detail'>
            {
             (formData.location)?<p>
-                <span className='detailh'>Describe</span>: {' '+formData.description} <br/> 
+               <span className='detailh'>Describe</span>: {' '}
+               <span className='description-text'>{formData.description}</span> <br/> 
                 <span className='detailh'>Type of Service</span>:{' '+formData.servicetype}<br/> 
                 <span className='detailh'>Location</span>:<br/>
                 {'latitute: '+formData.location.latitude}<br/>

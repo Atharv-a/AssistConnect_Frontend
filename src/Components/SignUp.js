@@ -15,9 +15,13 @@ export default function SignUp({setLoggedIn})
     const navigate = useNavigate()
 
     if(email.length>254)cautionLen("Email","254","email_prob") 
+    else toast.remove("email_prob")
     if(firstname.length>254)cautionLen("Firstname","254","firstname_prob")
-    if(lastname.length>254)cautionLen("Lastname","254","lasttname_prob")
+    else toast.remove("firstname_prob")
+    if(lastname.length>254)cautionLen("Lastname","254","lastname_prob")
+    else toast.remove("lastname_prob")
     if(password.length>254)cautionLen("Password","254","password_prob")
+    else toast.remove("password_prob")
 
     function handleSignUp(e){
         e.preventDefault()

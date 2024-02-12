@@ -12,17 +12,16 @@ export default function Form({ setFormData, setLoggedIn })
         location: null
     })
     
-    if(data.description.length>1000)cautionLen("Description","1000","Describe_prob")
+    if(data.description&&data.description.length>1000)cautionLen("Description","1000","Describe_prob")
+    else toast.remove("Describe_prob")
     
     async function handleClick(e)
     {
         e.preventDefault()
-        if (data.description == null
-            || data.servicetype == null
+        if ( data.servicetype == null
             || data.location == null)
         {
             let message = ""
-            if (data.description == null) message = "type in description, "
             if (data.servicetype == null)  message += "select type of service, "
             if (data.location == null) message += (message?"and ":"")+"move location marker  "
 
@@ -30,8 +29,8 @@ export default function Form({ setFormData, setLoggedIn })
             errorMessage("Please " + message)
             return
         }
-        if(data.description.length>1000){
-            errorMessage("Decription Length should be less than ")
+        if(data.description&&data.description.length>1000){
+            errorMessage("Decription Length should be less than 1000")
             return
         }
         

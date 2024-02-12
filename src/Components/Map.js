@@ -5,27 +5,30 @@ import L from "leaflet";
 
 export default function Map({setData}){ 
 
-    const center = {
-        lat: 26.8466937,
-        lng: 80.94616,
-    }
-   
     const  [position,setPosition] = useState(null)
     useEffect(() => {
-        navigator.geolocation.getCurrentPosition(
-          (pos) => {
-            setPosition({
-              lat: pos.coords.latitude,
-              lng: pos.coords.longitude,
-            })
-          },
-          (error) => {
-            console.error("Error getting geolocation:", error)
-            setPosition(center)
-          }
-        )
-        setData((pre)=>({...pre,location:position}))
-      }, [])
+
+          const center = {
+            lat: 26.8466937,
+            lng: 80.94616,
+        }
+ 
+        if(position == null){
+          navigator.geolocation.getCurrentPosition(
+            (pos) => {
+              setPosition({
+                lat: pos.coords.latitude,
+                lng: pos.coords.longitude,
+              })
+            },
+            (error) => {
+              console.error("Error getting geolocation:", error)
+              setPosition(center)
+            }
+          )
+          setData((pre)=>({...pre,location:position}))
+      }
+      }, [setData,position])
 
     const customIcon = new L.Icon({
         iconUrl: require("../images/placeholder.png"),
@@ -34,10 +37,11 @@ export default function Map({setData}){
     })
 
     function handleDrag(e){
-        setPosition(e.target.getLatLng())
+        const newPositon = e.target.getLatLng();
+        setPosition(newPositon)
         setData((predata)=>({
             ...predata,
-            location:position
+            location:newPositon
         }))
     }
 

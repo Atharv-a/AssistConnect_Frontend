@@ -12,32 +12,36 @@ export default function Home({setLoggedIn}) {
     servicetype: null,
     location: null
   })
+  const [dataFetched,setDataFetched]=useState(false)
 
   useEffect(() => {
-    const jwt = localStorage.getItem("assistConnect_jwt")
-    const id = localStorage.getItem("assistConnect_id")
+    if(!dataFetched){
+      const jwt = localStorage.getItem("assistConnect_jwt")
+      const id = localStorage.getItem("assistConnect_id")
 
-    axios.get(`http://localhost:8080/getdata/${id}`, {
-      headers: {
-        Authorization: `Bearer ${jwt}`
-      }
-    })
-    .then(response => {
-      const data = response.data
-      if (data.servicetype != null) {
-        setFormData({
-          description: data.description,
-          servicetype: data.servicetype,
-          location: data.location
-        })
-      }
-      else{/*user will make  a submission*/}
-    })
-    .catch(error => {
-      if(error.response.status === 403){setLoggedIn(false)}
-      else errorMessage(error.message, "GetDataError")
-    })
-  }, [])
+      axios.get(`http://localhost:8080/getdata/${id}`, {
+        headers: {
+          Authorization: `Bearer ${jwt}`
+        }
+      })
+      .then(response => {
+        const data = response.data
+        if (data.servicetype != null) {
+          setFormData({
+            description: data.description,
+            servicetype: data.servicetype,
+            location: data.location
+          })
+        }
+        else{/*user will make  a submission*/}
+        setDataFetched(true)
+      })
+      .catch(error => {
+        if(error.response.status === 403){setLoggedIn(pre =>false)}
+        else errorMessage(error.message, "GetDataError")
+      })
+  }
+  }, [dataFetched,setLoggedIn])
 
   return (
     <>
