@@ -43,7 +43,8 @@ export default function Form({ setFormData, setLoggedIn })
                 servicetype:data.servicetype,
                 location:{latitude:lat, longitude:lng}
             }
-            const response = await axios.post("http://localhost:8080/formdata", dataToSend,{
+            const  domain = process.env.REACT_APP_VariableName
+            const response = await axios.post(`${domain}/formdata`, dataToSend,{
                 headers:{
                     Authorization:`Bearer ${jwt}`
                 }

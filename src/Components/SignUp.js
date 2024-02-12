@@ -11,7 +11,7 @@ export default function SignUp({setLoggedIn})
     const [firstname, setFirstname] = useState('')
     const [lastname, setLastname] = useState('')
     const [password, setPassword] = useState('')
-    
+    console.log(process.env.REACT_APP_VariableName)
     const navigate = useNavigate()
 
     if(email.length>254)cautionLen("Email","254","email_prob") 
@@ -39,7 +39,9 @@ export default function SignUp({setLoggedIn})
             return 
         }
         toast.remove()
-        axios.post("http://localhost:8080/auth/register",{
+        const  domain = process.env.REACT_APP_VariableName
+        console.log(domain)
+        axios.post(`${domain}/auth/register`,{
             email:email,
             firstname:firstname,
             lastname:lastname,

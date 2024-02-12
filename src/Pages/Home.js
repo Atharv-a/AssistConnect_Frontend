@@ -18,8 +18,8 @@ export default function Home({setLoggedIn}) {
     if(!dataFetched){
       const jwt = localStorage.getItem("assistConnect_jwt")
       const id = localStorage.getItem("assistConnect_id")
-
-      axios.get(`http://localhost:8080/getdata/${id}`, {
+      const  domain = process.env.REACT_APP_VariableName
+      axios.get(`${domain}/getdata/${id}`, {
         headers: {
           Authorization: `Bearer ${jwt}`
         }

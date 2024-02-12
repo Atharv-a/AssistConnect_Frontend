@@ -31,7 +31,8 @@ export default function Login({setLoggedIn}){
             return 
         }
         toast.remove()
-        axios.post("http://localhost:8080/auth/authenticate",{
+        const  domain =process.env.REACT_APP_VariableName
+        axios.post(`${domain}/auth/authenticate`,{
                 email:email,
                 password:password
                 

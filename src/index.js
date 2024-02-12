@@ -15,7 +15,6 @@ import { Toaster } from 'react-hot-toast'
 function App()
 {  
     const [loggedIn,setLoggedIn] = useState(false)
-    console.log(loggedIn)
 
     return <BrowserRouter>
         <Header/>
