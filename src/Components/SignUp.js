@@ -11,7 +11,7 @@ export default function SignUp({setLoggedIn})
     const [firstname, setFirstname] = useState('')
     const [lastname, setLastname] = useState('')
     const [password, setPassword] = useState('')
-    console.log(process.env.REACT_APP_VariableName)
+    
     const navigate = useNavigate()
 
     if(email.length>254)cautionLen("Email","254","email_prob") 
